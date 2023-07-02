@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Case 1 -->
+<!--    <script src="index.js" />-->
+
+    <!-- Case 3 -->
+<!--    <script async src="index.js" />-->
+
+    <!-- Case 4 -->
+<!--    <script defer src="index.js" />-->
+
+</head>
+<body>
+  <div></div>
+  <!-- Case 2 -->
+<!--  <script src="index.js" />-->
+</body>
+</html>
+
+<!-- 위에서 아래로 인터프리터 방식
+ ** fetching : 파일을 서버에서 내려받는 행동
+ ** executing : 실행하는 행동
+ ** page is ready : parsing HTML이 완료된 시점
+
+
+ * Case 1
+ - parsing HTML -> blocked(fetching js > executing js) -> parsing HTML 의 동작을 합니다.
+
+ 단점 : js 파일의 용량이 크거나 인터넷이 느린경우 사용자가 처리가 완료된
+ 페이지를 보는데까지 시간이 너무 오래 걸립니다.
+
+ * Case 2
+ - parsing HTML -> fetching js > executing js
+
+ 장점 : 기본적인 웹사이트를 사용자가 빠르게 볼 수 있습니다.
+ 단점 : 웹사이트가 js에 의존적이라면 사용자가 의미있는 Contents를 보려면 Case1과 비슷할 것입니다.
+
+ * Case 3(async)
+ - parsing HTML -> block(executing js) -> parsing HTML
+       fetching js
+
+ 설명 :
+ 1. parsing HTML을 하다가 async로 선언된 script를 발견하면 병렬적으로 서버에 다운로드를 받게 명령을 하고 계속적으로 parsing을 합니다.
+ 2. fetching이 끝나는 시점에 blocked 상태가 되면서 executing 하고 끝나면 parsing을 이어서 합니다.
+
+ 장점 :
+ 1. parsing 하는 도중에 병렬적으로 fetching이 일어나기때문에 그만큼 blocked되는 시간을 줄일 수 있습니다.
+ 단점 :
+ 1. js에 dom을 제어하는 명령이 들어있는데, 아직 parsing이 덜된 부분이 있다면 오류가 날 위험이 있습니다.
+ 2. 여전히 block이 parsing 중간에 일어나기떄문에 사용자가 완료된 페이지를 받는데까지 오류 걸립니다.
+
+ 다수의 async 인경우,
+ <script async src="index1.js" />   -- Size 3
+ <script async src="index2.js" />   -- Size 1
+ <script async src="index3.js" />   -- Size 2
+
+ * async 의 동작원리는 같지만, async가 처리되는 순서가 보장되지 않고,
+ fetching js가 끝나는 순서대로 blocked 상태로 변환되고, executing js 가 일어납니다.
+ 즉, index2 > index3 > index1이 됩니다.
+ 문제는 js간에 순서가 보장되어야 한다면 async로 처리할 경우 문제가 생길 수 있습니다.
+
+ * Case 4(defer)
+ - parsing HTML -> executing js
+   fetching js
+
+ 설명 :
+ 1. parsing HTML을 하다가 defer로 선언된 script를 발견하면 병렬적으로 서버에 다운로드를 받게 명령하고 계속적으로 parsing을 합니다.
+ 2. parsing HTML이 끝나고(page is ready) executing js 가 됩니다.
+
+ 다수의 defer 인경우,
+ <script defer src="index1.js" />   -- Size 3
+ <script defer src="index2.js" />   -- Size 1
+ <script defer src="index3.js" />   -- Size 2
+
+ * defer 의 동작원리는 같지만, defer는 순서가 보장이됩니다.
+ parsing 되는동안 모든 js 파일들이 fetching 이 되고,
+ parsing HTML 이 끝난ㄴ 시점에 위에 선언된 순서대로 js 가 executing 이 됩니다.
+-->

@@ -1,0 +1,19 @@
+JavaScript 공식사이트
+ - ecma-international.org
+ - developer.mozilla.org
+ - MDN
+
+BABEL
+ - ECMAScript의 최신버전으로 개발한 후 배포할때 JavaScript TransCompiler를 통해 ECMASciprt의 버전을 변환해서 변환된 코드를 생산이 가능하게 해줍니다.
+
+SPA(Single Page Application)
+ - 하나의 페이지안에서 데이터를 받아와서 필요한부분만 업데이트 해주는 것이 장점입니다.
+
+Web API
+ - JavaScript언어 자체가 포함된게 아니라 브라우저가 제공하는 함수들입니다.
+ - console.log(), alert() 등등..
+
+use strict
+ - JavaScript : vanilla js 를 사용하는 경우 최상단에 'use strict'를 선언해주는 것이 좋다.
+ - ECMAScript5 부터 추가 되었습니다.
+ - strict 모드로 개발을 하기되면 변수가 좀 더 상식적으로 개발을 할 수 있다. ex) 변수가 선언되기 전에 꺼내서 쓸 수 없는 등등..
